@@ -8,15 +8,10 @@ import {
   Text,
   Divider,
   CardFooter,
-  ButtonGroup,
   Button,
   Progress,
   CardHeader,
   Flex,
-  IconButton,
-  Box,
-  Avatar,
-  CircularProgress,
 } from "@chakra-ui/react";
 import TableDetails from "./TableDetails";
 import TableStats from "./TableStats";
