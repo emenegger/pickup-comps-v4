@@ -3,9 +3,10 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import MainForm from "@/components/MainForm";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavBar from "@/components/NavBar";
 import Comparison from "@/components/Comparison";
+import { UserContext } from "@/context/UserProvider";
 // import { supabase } from "./api/client";
 import supabase from "./api/client";
 
@@ -16,17 +17,18 @@ export default function Home() {
   const [loading, setLoading] = useState();
   const [nbaComp, setNbaComp] = useState();
   const [dbData, setDbData] = useState();
+  const { currUser, currSession } = useContext(UserContext);
+
+  console.log('curr user', currUser)
   
   useEffect(() => {
     fetchGameData();
   }, []);
 
   const fetchGameData = async () => {
-    console.log('supabase in index', supabase);
     const { data, error } = await supabase.from("games").select("*");
     try {
       setDbData(data);
-      console.log("game data", data);
     } catch (error) {
       console.log('error', error)
     }
