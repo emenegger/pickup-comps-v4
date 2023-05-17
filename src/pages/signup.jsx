@@ -23,7 +23,6 @@ const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmed, setShowConfirmed] = useState(false);
-
   const toast = useToast();
 
   const router = useRouter();
@@ -45,26 +44,21 @@ const SignUp = () => {
     );
     // send the email and password to supabase
     if (password === confirmedPassword) {
-      //* auth is reading undefined
-      // const { data, error } = await supabase.auth.signUp({
-      //   email,
-      //   password,
-      // });
-      // const { user, session, error } = await supabase.auth.signUp({
-      //   email: 'example@email.com',
-      //   password: 'example-password',
-      // })
-      console.log(user, session);
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      console.log('auth data', data);
       if (error) {
         console.log("error:", error, error.message);
         setErrorMessage(error.message);
-        // toast({
-        //   title: 'Sign Up Error',
-        //   description: {errorMessage},
-        //   status: 'error',
-        //   duration: 9000,
-        //   isClosable: true,
-        // })
+        toast({
+          title: 'Sign Up Error',
+          description: {errorMessage},
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        })
       } else {
         // redirect back to index
         router.push("/");

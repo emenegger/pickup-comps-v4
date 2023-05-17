@@ -6,7 +6,8 @@ import MainForm from "@/components/MainForm";
 import React, { useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
 import Comparison from "@/components/Comparison";
-import { supabase } from "./api/client";
+// import { supabase } from "./api/client";
+import supabase from "./api/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,11 @@ export default function Home() {
   }, []);
 
   const fetchGameData = async () => {
+    console.log('supabase in index', supabase);
     const { data, error } = await supabase.from("games").select("*");
     try {
       setDbData(data);
-      console.log("data", data);
+      console.log("game data", data);
     } catch (error) {
       console.log('error', error)
     }
