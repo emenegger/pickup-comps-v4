@@ -2,8 +2,8 @@ import React from "react";
 import { InputGroup, InputRightAddon, Input } from "@chakra-ui/react";
 
 
-const Inputs = (props) => {
-  const { ele, setInputtedStats, inputtedStats, handleUserInput } = props;
+const Inputs = ({ele, handleUserInput}) => {
+  // const { ele, setInputtedStats, inputtedStats, handleUserInput } = props;
   // console.log(props)
   
   return (

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import MainForm from "@/components/MainForm";
@@ -9,6 +8,7 @@ import Comparison from "@/components/Comparison";
 import { UserContext } from "@/context/UserProvider";
 // import { supabase } from "./api/client";
 import supabase from "./api/client";
+import { Heading, VStack, Text } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +19,6 @@ export default function Home() {
   const [dbData, setDbData] = useState();
   const { currUser, currSession } = useContext(UserContext);
 
-  console.log('curr user', currUser)
-  
   useEffect(() => {
     fetchGameData();
   }, []);
@@ -30,7 +28,7 @@ export default function Home() {
     try {
       setDbData(data);
     } catch (error) {
-      console.log('error', error)
+      console.log("error", error);
     }
   };
 
@@ -43,16 +41,20 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <NavBar>
-        {loading ? (
-          <Comparison inputtedStats={inputtedStats} nbaComp={nbaComp}/>
-        ) : (
-          <MainForm
-            setInputtedStats={setInputtedStats}
-            inputtedStats={inputtedStats}
-            setLoading={setLoading}
-            setNbaComp={setNbaComp}
-          />
-        )}
+        <VStack>
+          <Heading size='md'>Find your NBA Doppleganger</Heading>
+          <Text>Enter your most recent pick up stats below to find out.</Text>
+          {loading ? (
+            <Comparison inputtedStats={inputtedStats} nbaComp={nbaComp} />
+          ) : (
+            <MainForm
+              setInputtedStats={setInputtedStats}
+              inputtedStats={inputtedStats}
+              setLoading={setLoading}
+              setNbaComp={setNbaComp}
+            />
+          )}
+        </VStack>
         {/* {dbData?.map((ele, i)=> {
           return (
             <li key={ele+1}>Data: {ele}</li>
