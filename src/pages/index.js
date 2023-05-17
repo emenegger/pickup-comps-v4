@@ -3,10 +3,12 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import MainForm from "@/components/MainForm";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavBar from "@/components/NavBar";
 import Comparison from "@/components/Comparison";
-import { supabase } from "./api/client";
+import { UserContext } from "@/context/UserProvider";
+// import { supabase } from "./api/client";
+import supabase from "./api/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +17,9 @@ export default function Home() {
   const [loading, setLoading] = useState();
   const [nbaComp, setNbaComp] = useState();
   const [dbData, setDbData] = useState();
+  const { currUser, currSession } = useContext(UserContext);
+
+  console.log('curr user', currUser)
   
   useEffect(() => {
     fetchGameData();
@@ -24,7 +29,6 @@ export default function Home() {
     const { data, error } = await supabase.from("games").select("*");
     try {
       setDbData(data);
-      console.log("data", data);
     } catch (error) {
       console.log('error', error)
     }

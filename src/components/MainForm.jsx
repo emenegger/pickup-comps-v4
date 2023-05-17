@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Inputs from "./Inputs";
 import { formItems } from "../../public/formItems";
-import { supabase } from "../pages/api/client";
+import supabase from "@/pages/api/client";
 import { adjustUserStat, adjustAllUserStats, playerMatchFunc } from "../../public/stats-functions";
 
 const MainForm = (props) => {
@@ -46,9 +46,10 @@ const MainForm = (props) => {
     const nbaPlayerData = await data.json();
     // find a match between the inputted stats and nba player data
     const matchedNBAplayer = playerMatchFunc(inputtedStats, nbaPlayerData);
-    console.log(matchedNBAplayer);
     setNbaComp(matchedNBAplayer);
-
+    const { data: { user } } = await supabase.auth.getUser();
+    // const userData = await supabase.auth.getUser();
+    console.log('user', user);
     // insert user data and matchedNBA player into database
     const {error} = await supabase
     .from('games')
