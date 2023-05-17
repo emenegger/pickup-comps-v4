@@ -31,7 +31,6 @@ const NavBar = ({ children }) => {
     setCurrSession(null);
   };
 
-  // const handleSignInClick = () => router.push("/signin");
 
   return (
     <>
@@ -39,11 +38,10 @@ const NavBar = ({ children }) => {
         justify="space-between"
         p={2}
         boxShadow="0px 2px 4px rgba(0, 0, 0, 0.1)"
-        // pb={4}
       >
         <Image
         width={50}
-        height={50}
+        height='auto'
         src={logo}
         alt='Pickup Comps'
         />
@@ -69,6 +67,7 @@ const NavBar = ({ children }) => {
               />
               <MenuList>
                 <MenuItem>Your Profile</MenuItem>
+                <MenuItem>Your Games</MenuItem>
                 <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
               </MenuList>
             </Menu>

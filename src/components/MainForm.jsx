@@ -45,10 +45,11 @@ const MainForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // adjust stats to be equivalent to NBA
-    const adjustedStats = adjustAllUserStats(
+    const {points, assists, rebounds, steals, blocks} = adjustAllUserStats(
       inputtedStats,
       inputtedStats.game_to
     );
+
     // fetch data from database
     const data = await fetch("api/nba-players");
     const nbaPlayerData = await data.json();
@@ -61,11 +62,12 @@ const MainForm = (props) => {
     console.log("user", user);
     // insert user data and matchedNBA player into database
     const { error } = await supabase.from("games").insert({
-      a_ppg: adjustedStats.points,
-      a_apg: adjustedStats.assists,
-      a_rpg: adjustedStats.rebounds,
-      a_spg: adjustedStats.steals,
-      a_bpg: adjustedStats.blocks,
+      user_id: user.id,
+      a_ppg: points,
+      a_apg: assists,
+      a_rpg: rebounds,
+      a_spg: steals,
+      a_bpg: blocks,
       r_ppg: inputtedStats.points,
       r_apg: inputtedStats.assists,
       r_rpg: inputtedStats.rebounds,

@@ -18,23 +18,24 @@ import TableStats from "./TableStats";
 import { BiLike, BiChat, BiShare, BiDotsVerticalRounded } from "react-icons/bi";
 
 
-const Comparison = (props) => {
-  const { inputtedStats, nbaComp } = props;
+const Comparison = ({ inputtedStats, nbaComp } ) => {
+  const { date } = inputtedStats;
+  const { imgSrc, first_name, last_name, simalarityTotal} = nbaComp;
 
   return (
     <Card maxW='md'>
         <CardHeader>
           <Flex>
             <Text size="xs" as="i">
-              Pick Up Game on <b>{inputtedStats.date}</b>
+              Pick Up Game on <b>{date}</b>
             </Text>
           </Flex>
         </CardHeader>
         <CardBody>
-          <Image src={nbaComp.imgSrc} alt="player name" borderRadius="lg" />
+          <Image src={imgSrc} alt="player name" borderRadius="lg" />
           <Stack mt="6" spacing="3">
             <Heading size="md" textAlign="center">
-              {nbaComp.first_name} {nbaComp.last_name}
+              {first_name} {last_name}
             </Heading>
           </Stack>
           <TableDetails playerDetails={nbaComp} />
@@ -46,7 +47,7 @@ const Comparison = (props) => {
             <Progress
               colorScheme="green"
               height="32px"
-              value={100 - nbaComp.simalarityTotal * 2}
+              value={100 - simalarityTotal * 2}
               display="true"
             />
             {/* <Text>{100 - nbaComp.simalarityTotal * 2}%</Text> */}
