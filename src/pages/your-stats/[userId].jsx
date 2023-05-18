@@ -18,11 +18,15 @@ import {
   generateReadableTitle,
   generateOneWordTitle,
 } from "../../../utils/helpers";
-import Head from "next/head";
-// access user's stats based on their
+// import TimeSeriesChart from "@/components/TimeSeriesChart";
+import dynamic from "next/dynamic";
+
+const TimeSeriesChart = dynamic(() => import("@/components/TimeSeriesChart"), {
+  ssr: false,
+});
 
 const YourStats = ({ games }) => {
-  console.log("games", games);
+  // console.log("games", games);
   const router = useRouter();
   const { userId } = router.query;
 
@@ -43,21 +47,23 @@ const YourStats = ({ games }) => {
   const adjustedKeys = filterKeys("a_");
   const rawKeys = filterKeys("r_");
 
-  // function filterObjectsByKeys(games, adjustedKeys) {
-  //   return games.map(game => {
-  //     const filteredObject = {};
+  function filterObjectsByKeys(games, keys) {
+    return games.map((game) => {
+      const filteredObject = {};
 
-  //     adjustedKeys.forEach(key => {
-  //       if (game.hasOwnProperty(key)) {
-  //         filteredObject[key] = game[key];
-  //       }
-  //     });
+      keys.forEach((key, i) => {
+        filteredObject["created_at"] = game["created_at"];
+        if (game.hasOwnProperty(key)) {
+          filteredObject[key] = game[key];
+        }
+      });
 
-  //     return filteredObject;
-  //   });
-  // }
+      return filteredObject;
+    });
+  }
 
-  // console.log(filterObjectsByKeys(games, adjustedKeys));
+  const rawStats = filterObjectsByKeys(games, rawKeys);
+  const adjustedStats = filterObjectsByKeys(games, adjustedKeys);
 
   // const statDisplay = adjustedKeys.map((key) => {
   //   return (
@@ -71,7 +77,7 @@ const YourStats = ({ games }) => {
   const statDisplay = (arr) => {
     return arr.map((key) => {
       return (
-        <Stat>
+        <Stat key={key}>
           <StatLabel>{generateOneWordTitle(key)}</StatLabel>
           <StatNumber>{Number(average(key)).toFixed(1)}</StatNumber>
         </Stat>
@@ -81,11 +87,16 @@ const YourStats = ({ games }) => {
 
   return (
     <Flex justify="center" align="center" direction="column" p={5}>
-      <Heading size="lg" p={5}>Your Raw Averages</Heading>
+      <Heading size="lg" p={5}>
+        Your Raw Averages
+      </Heading>
       <StatGroup width={700}>{statDisplay(rawKeys)}</StatGroup>
-      <Divider m={10}/>
-      <Heading size="lg" p={5}>Your Adjusted Averages</Heading>
+      <Divider m={10} />
+      <Heading size="lg" p={5}>
+        Your Adjusted Averages
+      </Heading>
       <StatGroup width={700}>{statDisplay(adjustedKeys)}</StatGroup>
+      <TimeSeriesChart data={rawStats} />
     </Flex>
   );
 };
