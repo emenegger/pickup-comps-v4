@@ -1,3 +1,7 @@
+.chart-container {
+  width: 90vw;
+}
+
 .chart-container .c3-chart-bars path {
   fill: none; /* Remove the fill color */
 }
@@ -11,10 +15,11 @@
 .chart-container .c3-axis line {
   stroke: rgb(6, 6, 6); /* Customize the axis lines color */
   stroke-width: 0.5px; 
+  fill: none;
 }
 
 .chart-container .c3-axis text {
-  fill: #000; /* Customize the axis labels color */
+  fill: rgb(45, 44, 44); /* Customize the axis labels color */
 }
 
 .chart-container .c3-axis-x .tick text {

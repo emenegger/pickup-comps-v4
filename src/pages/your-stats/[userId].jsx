@@ -91,12 +91,13 @@ const YourStats = ({ games }) => {
         Your Raw Averages
       </Heading>
       <StatGroup width={700}>{statDisplay(rawKeys)}</StatGroup>
+      <TimeSeriesChart data={rawStats} />
       <Divider m={10} />
       <Heading size="lg" p={5}>
         Your Adjusted Averages
       </Heading>
       <StatGroup width={700}>{statDisplay(adjustedKeys)}</StatGroup>
-      <TimeSeriesChart data={rawStats} />
+      <TimeSeriesChart data={adjustedStats} />
     </Flex>
   );
 };
