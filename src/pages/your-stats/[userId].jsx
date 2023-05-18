@@ -13,6 +13,7 @@ import {
   Box,
   Center,
   Divider,
+  Card,
 } from "@chakra-ui/react";
 import {
   generateReadableTitle,
@@ -20,6 +21,7 @@ import {
 } from "../../../utils/helpers";
 // import TimeSeriesChart from "@/components/TimeSeriesChart";
 import dynamic from "next/dynamic";
+import { Caramel } from "next/font/google";
 
 const TimeSeriesChart = dynamic(() => import("@/components/TimeSeriesChart"), {
   ssr: false,
@@ -87,17 +89,21 @@ const YourStats = ({ games }) => {
 
   return (
     <Flex justify="center" align="center" direction="column" p={5}>
-      <Heading size="lg" p={5}>
-        Your Raw Averages
-      </Heading>
-      <StatGroup width={700}>{statDisplay(rawKeys)}</StatGroup>
-      <TimeSeriesChart data={rawStats} />
+      <Card padding={10} align='center'>
+        <Heading size="lg" p={5}>
+          Your Raw Averages
+        </Heading>
+        <StatGroup width={700}>{statDisplay(rawKeys)}</StatGroup>
+        <TimeSeriesChart data={rawStats} />
+      </Card>
       <Divider m={10} />
+      <Card padding={10}>
       <Heading size="lg" p={5}>
         Your Adjusted Averages
       </Heading>
       <StatGroup width={700}>{statDisplay(adjustedKeys)}</StatGroup>
       <TimeSeriesChart data={adjustedStats} />
+      </Card>
     </Flex>
   );
 };
