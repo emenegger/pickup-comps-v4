@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import supabase from "@/pages/api/client";
 
+//* this should be deleted ...
+
 // const useUser = () => {
 //   useEffect(() => {
 //     const getUser = async () => {
