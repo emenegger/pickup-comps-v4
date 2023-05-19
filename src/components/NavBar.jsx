@@ -11,10 +11,9 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "@/context/UserProvider";
 import supabase from "@/pages/api/client";
-import useUser from "@/hooks/useUser";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import logo from "/Users/evanemenegger/Desktop/Projects/pickup-comps-v4/public/pc-logo.png";
@@ -30,12 +29,6 @@ const NavBar = ({ children }) => {
     console.log("error", error);
     setCurrUser(null);
     setCurrSession(null);
-  };
-
-  const handleSeeStats = () => {
-    const userId = currUser?.id;
-    console.log("userId", userId);
-    router.push(`/your-stats/${userId}`);
   };
 
   return (
