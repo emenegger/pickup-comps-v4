@@ -59,7 +59,6 @@ const MainForm = (props) => {
     const {
       data: { user },
     } = await supabase.auth.getUser();
-    console.log("user", user);
     // insert user data and matchedNBA player into database
     const { error } = await supabase.from("games").insert({
       user_id: user.id,

@@ -15,10 +15,10 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -44,21 +44,31 @@ const SignUp = () => {
     );
     // send the email and password to supabase
     if (password === confirmedPassword) {
-      const { data, error } = await supabase.auth.signUp({
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            username: username,
+          }
+        }
       });
-      console.log('auth data', data);
+      console.log("auth data", user);
+      //* add user to database!
+
       if (error) {
         console.log("error:", error, error.message);
         setErrorMessage(error.message);
-        toast({
-          title: 'Sign Up Error',
-          description: {errorMessage},
-          status: 'error',
+        toast({ 
+          title: "Sign Up Error",
+          description: error.message,
+          status: "error",
           duration: 9000,
           isClosable: true,
-        })
+        });
       } else {
         // redirect back to index
         router.push("/");
@@ -66,12 +76,12 @@ const SignUp = () => {
     } else {
       // setErrorMessage("Passwords must match");
       toast({
-        title: 'Sign Up Error',
+        title: "Sign Up Error",
         description: "Passwords must match",
-        status: 'error',
+        status: "error",
         duration: 9000,
         isClosable: true,
-      })
+      });
     }
   };
 
@@ -87,9 +97,23 @@ const SignUp = () => {
           }}
         >
           <Heading>Sign Up For Pickup Comps</Heading>
+            <InputGroup size="xl">
+              <Input
+                pr="4.5rem"
+                type="text"
+                placeholder="Create username"
+                value={username}
+                onChange={(e) => handleChange(e, username, setUsername)}
+              />
+            </InputGroup>
           <InputGroup size="xl">
-            <Input pr="4.5rem" type="email" placeholder="Enter email" value={email}
-              onChange={(e) => handleChange(e, email, setEmail)} />
+            <Input
+              pr="4.5rem"
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => handleChange(e, email, setEmail)}
+            />
           </InputGroup>
           <InputGroup size="xl">
             <Input
@@ -115,7 +139,9 @@ const SignUp = () => {
               type={showConfirmed ? "text" : "password"}
               placeholder="Confirm password"
               value={confirmedPassword}
-              onChange={(e) => handleChange(e, confirmedPassword, setConfirmedPassword)}
+              onChange={(e) =>
+                handleChange(e, confirmedPassword, setConfirmedPassword)
+              }
             />
             <InputRightElement width="4.5rem">
               <Button

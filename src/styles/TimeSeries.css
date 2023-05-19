@@ -1,0 +1,32 @@
+.chart-container {
+  width: 90vw;
+}
+
+.chart-container .c3-chart-bars path {
+  fill: none; /* Remove the fill color */
+}
+
+.chart-container .c3-chart-lines path {
+  fill: none; /* Remove the fill color */
+}
+
+/* You can customize other chart elements as well */
+.chart-container .c3-axis path,
+.chart-container .c3-axis line {
+  stroke: rgb(6, 6, 6); /* Customize the axis lines color */
+  stroke-width: 0.5px; 
+  fill: none;
+}
+
+.chart-container .c3-axis text {
+  fill: rgb(45, 44, 44); /* Customize the axis labels color */
+}
+
+.chart-container .c3-axis-x .tick text {
+  font-size: 12px; /* Adjust the font size as needed */
+}
+
+.chart-container .c3-chart-lines path.c3-xgrid-line,
+.chart-container .c3-chart-lines path.c3-ygrid-line {
+  stroke-width: 2px; /* Adjust the line thickness as needed */
+}
