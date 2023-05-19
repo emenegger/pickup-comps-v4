@@ -40,7 +40,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar>
         <VStack>
           <Heading size='md'>Find your NBA Doppleganger</Heading>
           <Text>Enter your most recent pick up stats below to find out.</Text>
@@ -60,7 +59,6 @@ export default function Home() {
             <li key={ele+1}>Data: {ele}</li>
           )
         })} */}
-      </NavBar>
     </>
   );
 }
