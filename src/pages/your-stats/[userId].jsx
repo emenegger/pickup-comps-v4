@@ -97,7 +97,7 @@ const YourStats = ({ games }) => {
         <TimeSeriesChart data={rawStats} />
       </Card>
       <Divider m={10} />
-      <Card padding={10}>
+      <Card padding={10} align='center'>
       <Heading size="lg" p={5}>
         Your Adjusted Averages
       </Heading>
